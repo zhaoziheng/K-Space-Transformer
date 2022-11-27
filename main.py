@@ -10,7 +10,7 @@ import torch.optim as optim
 import math
 import torch.backends.cudnn as cudnn
 
-from dataset import TrainDataSet, TestDataSet
+from dataset import TrainDataSet, ValidDataSet, TestDataSet
 from Ktransformer import Transformer
 from train import train
 
@@ -106,13 +106,13 @@ train_mask_path = config.train_mask_path
 valid_mask_path = config.valid_mask_path
 
 def data_loader():
-    print('Start Loading Dataset from %s, Mask from %s' % (config.train_hr_data_path, config.train_mask_path))
+    print('Start Loading Dataset from %s, \nMask from %s' % (config.train_hr_data_path, config.train_mask_path))
     t1 = time.time()
     trainSet = TrainDataSet(train_path, train_lr_path, train_mask_path)
     trainLoader = DataLoader(trainSet, batch_size=config.batch_size, shuffle=True, num_workers=8)
     print('Train data num : %d' % len(trainSet))
     # val和valid用的是同一个mask
-    validSet = TestDataSet(valid_path, valid_lr_path, valid_mask_path)
+    validSet = ValidDataSet(valid_path, valid_lr_path, valid_mask_path)
     validLoader = DataLoader(validSet, batch_size=config.valid_batch_size, shuffle=True, num_workers=8)
     print('valid data num : %d ' % len(validSet))
     print('Sampled Ratio: %.4f ' % (trainSet.sampled_num/trainSet.unsampled_num))
@@ -132,9 +132,9 @@ model = Transformer(lr_size=config.lr_size,
                     # MLP in Transformer Block
                     dim_feedforward=config.dim_feedforward,
                     # Refine Module CNN
-                    HR_conv_channel=config.HR_conv_channel,
-                    HR_conv_num=config.HR_conv_num,
-                    HR_kernel_size=config.HR_kernel_size,
+                    HR_conv_channel=config.hr_conv_channel,
+                    HR_conv_num=config.hr_conv_num,
+                    HR_kernel_size=config.hr_kernel_size,
                     dropout=config.dropout,
                     activation="relu")
 
@@ -175,8 +175,8 @@ train(model=model,
       optimizer=optimizer,
       lr_sch=lr_sch,
       start_epoch=start_epoch,
-      best_val_psnr=best_val_psnr,
-      best_val_ssim=best_val_ssim,
+      best_valid_psnr=best_val_psnr,
+      best_valid_ssim=best_val_ssim,
       device=device,
       config=config,
       trainSet=trainSet, trainLoader=trainLoader,

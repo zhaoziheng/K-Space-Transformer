@@ -1,4 +1,4 @@
-# K-Space Transformer for Undersampled MRI Reconstruction
+al# K-Space Transformer for Undersampled MRI Reconstruction
 
 This repository contains the PyTorch implementation of K-Space Transformer.
 
@@ -23,11 +23,29 @@ Requirements:
 * tqdm
 
 ### To Run Our Code
+- Data Access
+OASIS brain MRI dataset : https://www.oasis-brains.org
+fastMRI knee MRI dataset : https://fastmri.med.nyu.edu
+
+- Model
+Our pretrained model : https://drive.google.com/drive/folders/1YvkykYh5yoxLd_nuNgKfUXly_BCX-5RO?usp=sharing
+
 - Train the model
 ```bash
-python main.py --output_dir 'Log' --train_hr_data_path 'xxx/xxx.npy' --train_lr_data_path 'xxx/xxx.npy' --train_mask_path 'xxx/xxx.npy' --valid_hr_data_path 'xxx/xxx.npy' --valid_lr_data_path 'xxx/xxx.npy' --valid_mask_path 'xxx/xxx.npy'
+python main.py --output_dir 'Log_Path' \
+--train_hr_data_path 'xxx/xxx.npy' \
+--train_lr_data_path 'xxx/xxx.npy' \
+--train_mask_path 'xxx/xxx.npy' \
+--valid_hr_data_path 'xxx/xxx.npy' \
+--valid_lr_data_path 'xxx/xxx.npy' \
+--valid_mask_path 'xxx/xxx.npy'
 ```
+Here, hr and lr refers to the original resolution and downsampled groundtruth k-space MRI data.
 
 - Test the model
 ```bash
-python test.py --output_dir 'Record_Path' --modelPath 'xxx/checkpoint.pth' --hr_data_path 'xxx/xxx.npy' --lr_data_path 'xxx/xxx.npy' --mask_path 'xxx/xxx.npy'
+python test.py --output_dir 'Test_Record_Path' \
+--modelPath 'xxx/checkpoint.pth' \
+--data_path 'xxx/xxx.npy' \
+--mask_path 'xxx/xxx.npy'
+```

@@ -43,7 +43,7 @@ class TransformerDecoderLayerLR(nn.Module):
           nn.Linear(dim_feedforward, d_model),
           nn.Dropout(dropout)
         )
-        self.norm = nn.LayerNorm(d_model)
+        self.norm1 = nn.LayerNorm(d_model)
 
     def forward(self, tgt, memory):
 
@@ -51,7 +51,7 @@ class TransformerDecoderLayerLR(nn.Module):
 
         tgt = self.self_attn(tgt, tgt, tgt)[0]
 
-        tgt2 = self.norm(tgt)
+        tgt2 = self.norm1(tgt)
 
         tgt2 = self.ffn1(tgt2)
         tgt = tgt + tgt2
@@ -71,13 +71,13 @@ class TransformerDecoderLayerHR(nn.Module):
       nn.Linear(dim_feedforward, d_model),
       nn.Dropout(dropout)
     )
-    self.norm = nn.LayerNorm(d_model)
+    self.norm1 = nn.LayerNorm(d_model)
 
   def forward(self, tgt, memory):
     # tgt: [bs, h*w, d] hr-deocder query
     tgt = self.multihead_attn(tgt, memory, memory)[0]
 
-    tgt2 = self.norm(tgt)
+    tgt2 = self.norm1(tgt)
 
     tgt2 = self.ffn1(tgt2)
     tgt = tgt + tgt2

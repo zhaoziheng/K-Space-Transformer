@@ -46,7 +46,8 @@ def test(config, output_dir, model, model_Path, conv_weight, device, testSet, te
                                                    unsampled_pos=unsampled_pos,
                                                    up_scale=2,
                                                    mask=mask,
-                                                   conv_weight=conv_weight)
+                                                   conv_weight=conv_weight,
+                                                   stage='RM')
 
         HR_Conv_predicted_i = HR_Conv_results[-1].cpu().numpy()
         HR_unConv_predicted_i = HR_unConv_results[-1].cpu().numpy()
@@ -110,18 +111,16 @@ if __name__ == '__main__':
   # ----------------- Dataset Control
 
   parser.add_argument('--batch_size', type=int, default=24)
-  parser.add_argument('--hr_data_path', type=str, help='Path to the k-space data', default='xxx/xxx.npy')
-  parser.add_argument('--lr_data_path', type=str, help='Path to the downsampled k-space data', default='xxx/xxx.npy')
+  parser.add_argument('--data_path', type=str, help='Path to the k-space data', default='xxx/xxx.npy')
   parser.add_argument('--mask_path', type=str, help='Path to the undersampling masks', default='xxx/xxx.npy')
 
   config = parser.parse_args()
 
   # Prepare Dataset
-  testPath = config.hr_data_path
-  testlrPath = config.lr_data_path
+  testPath = config.data_path
   test_maskPath = config.mask_path
 
-  testSet = TestDataSet(testPath, testlrPath, test_maskPath)
+  testSet = TestDataSet(testPath, test_maskPath)
   testLoader = DataLoader(testSet, batch_size=config.batch_size, shuffle=False, num_workers=8)
 
   # Prepare Model
