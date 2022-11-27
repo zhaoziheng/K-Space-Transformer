@@ -23,12 +23,12 @@ Requirements:
 * tqdm
 
 ### To Run Our Code
-- Data Access
-OASIS brain MRI dataset : https://www.oasis-brains.org
-fastMRI knee MRI dataset : https://fastmri.med.nyu.edu
+- OASIS brain MRI dataset : https://www.oasis-brains.org
 
-- Model
-Our pretrained model : https://drive.google.com/drive/folders/1YvkykYh5yoxLd_nuNgKfUXly_BCX-5RO?usp=sharing
+- fastMRI knee MRI dataset : https://fastmri.med.nyu.edu
+
+- Our Pre-trained Model :
+https://drive.google.com/drive/folders/1YvkykYh5yoxLd_nuNgKfUXly_BCX-5RO?usp=sharing
 
 - Train the model
 ```bash
