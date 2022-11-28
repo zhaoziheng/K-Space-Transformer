@@ -1,6 +1,6 @@
 # K-Space Transformer for Undersampled MRI Reconstruction
 
-This repository contains the PyTorch implementation of K-Space Transformer.
+This repository contains the PyTorch implementation of K-Space Transformer: https://arxiv.org/abs/2206.06947v2.
 
 ### Citation
 If you use this code for your research or project, please cite:
