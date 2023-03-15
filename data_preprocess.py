@@ -1,6 +1,7 @@
 import numpy as np
 from fftc import ifft2c_new, fft2c_new
 import torch
+import toch.nn as nn
 import os
 import h5py
 import matplotlib.pylab as plt
