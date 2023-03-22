@@ -49,3 +49,6 @@ python test.py --output_dir 'Test_Record_Path' \
 --data_path 'xxx/xxx.npy' \
 --mask_path 'xxx/xxx.npy'
 ```
+
+### Acknowledgement
+To generate sampling masks, we use the code provided in https://github.com/rmsouza01/CD-Deep-Cascade-MR-Reconstruction.
